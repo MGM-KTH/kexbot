@@ -13,7 +13,11 @@ class kexbot(cmd.Cmd):
         return True
 
     def do_lookup(self, line):
-        print lookup(*line.split(' '))
+        jsondocument = json.dumps(lookup(*line.split(' ')), indent=4, separators=(',', ': '))
+        decoder = json.JSONDecoder()
+        jsonobj = decoder.decode(jsondocument)
+        for edge in jsonobj["edges"]:
+            print edge["start"] + ' ' + edge["rel"] + ' ' + edge["end"]
 
     def default(self, line):
         tokens = nltk.word_tokenize(line)
