@@ -4,8 +4,8 @@ import nltk
 import cmd
 
 
-import interpreter
-from cnet_client import *
+import interpreter as it
+import cnet_client as cnet
 
 class Kexbot(cmd.Cmd):
 
@@ -15,11 +15,10 @@ class Kexbot(cmd.Cmd):
         return True
 
     def do_lookup(self, line):
-        i.lookup(line)
+        cnet.lookup(*line.split(' '))
 
     def default(self, line):
-        i.process(line)
+        it.processLine(line)
 
 if __name__ == '__main__':
-    i = interpreter.Interpreter()
     Kexbot().cmdloop()
