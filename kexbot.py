@@ -5,7 +5,7 @@ import cmd
 
 from cnet_client import *
 
-class kexbot(cmd.Cmd):
+class Kexbot(cmd.Cmd):
 
     prompt = ">"
 
