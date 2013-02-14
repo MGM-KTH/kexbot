@@ -15,7 +15,7 @@ def lookup(type, language, key):
 
 def _get_json(*url_parts):
     url = API_URL + '/'.join(urllib2.quote(p) for p in url_parts) + '?limit=5'
-    print url
+    #print url
     return json.loads(_get_url(url))
 
 def _get_url(url):

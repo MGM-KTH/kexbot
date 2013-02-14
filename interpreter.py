@@ -13,11 +13,12 @@ def processLine(line):
     tokens = nltk.word_tokenize(line)
     tagged = nltk.pos_tag(tokens)
     simp = [(word, nltk.tag.simplify.simplify_wsj_tag(tag)) for word, tag in tagged]
+    print simp
     for tup in simp:
         (word, cat) = tup
         if cat == "N":
+            print word+':'
             processJson(word)
-    print simp
 
 def processJson(word):
     jsondocument = json.dumps(cnet.lookup("c", "en", word), indent=4, separators=(',', ': '))
