@@ -5,14 +5,23 @@ import nltk
 import cmd
 import argparse
 
+from colorama import init
+init(strip=not sys.stdout.isatty()) # strip colors if stdout is redirected
+from termcolor import cprint 
+from pyfiglet import figlet_format 
+
 class NLTKTest(cmd.Cmd):
 	
+	print "\n"
+	cprint(figlet_format('kexbot!', font='starwars'),
+	       'red', attrs=['bold'])
+	print "\n"
 	prompt = ">"
 		
 	def do_EOF(self, line):
 		return True	
 	
-		
+		s
 	# Input: A string, A list of tags
 	# Output: A list of words that matches any of the specified tags
 	def get_word_tag_match(self,text,tags):
@@ -53,7 +62,7 @@ class NLTKTest(cmd.Cmd):
 	def default(self, line):
 		test = NLTKTest()
 		# Find words with correct tags
-		words = test.get_word_tag_match(line, ["N","NP"])
+		words = test.get_word_tag_match(line, ["N"])
 		
 		# Print the result
 		test.print_list(words)
