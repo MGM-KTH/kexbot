@@ -33,3 +33,22 @@ def query_word(word):
     decoder = json.JSONDecoder()
     json_obj = decoder.decode(json_document)
     return json_obj
+
+
+# Input: A string, A list of tags
+# Output: A list of words that matches any of the specified tags
+def get_word_tag_match(self,text,tags):
+    found_words = []
+    # Tokenize the text (put into tuples)
+    tokenized_words = nltk.word_tokenize(text)
+    # Get tags for each word
+    tagged_words = nltk.pos_tag(tokenized_words)
+    # Loop the tuples
+    for word_tuple in tagged_words:
+        (word, tag) = word_tuple
+            # Convert tags to simple tags (a simplified tagset)
+        simple_tag = nltk.tag.simplify.simplify_wsj_tag(tag)
+        if(simple_tag in tags):
+            found_words.append(word)
+                
+        return found_words        
