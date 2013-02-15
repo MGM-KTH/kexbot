@@ -27,7 +27,7 @@ class Kexbot(cmd.Cmd):
         cnet.lookup(*line.split(' '))
 
     def default(self, line):
-        it.processLine(line)
+        it.process_line(line)
 
 if __name__ == '__main__':
     Kexbot().cmdloop()
