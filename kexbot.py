@@ -24,7 +24,10 @@ class Kexbot(cmd.Cmd):
         return True
 
     def do_lookup(self, line):
-        cnet.lookup(*line.split(' '))
+        print it.get_relations(it.query_word(line))
+
+    def do_search(self, line):
+        print (cnet.search(line))
 
     def default(self, line):
         it.process_line(line)
