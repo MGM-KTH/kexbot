@@ -30,7 +30,11 @@ class Kexbot(cmd.Cmd):
         print (cnet.search(line))
 
     def do_assoc(self, line):
-        print cnet.assoc(*line.split(' '))
+        args = line.split(' ')
+        if len(args) != 3:
+            print "Needs 3 arguments."
+            return
+        print cnet.assoc(*args)
 
     def default(self, line):
         it.process_line(line)
