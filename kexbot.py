@@ -29,6 +29,9 @@ class Kexbot(cmd.Cmd):
     def do_search(self, line):
         print (cnet.search(line))
 
+    def do_assoc(self, line):
+        print cnet.assoc(*line.split(' '))
+
     def default(self, line):
         it.process_line(line)
 
