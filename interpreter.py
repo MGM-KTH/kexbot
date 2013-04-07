@@ -49,9 +49,10 @@ def get_word_tag_match(text,tags):
 def print_relations(list):
     if not list:
         print "List is empty in print_relations"
+    wnl = nltk.stem.wordnet.WordNetLemmatizer()
     for word in list:
         print word+':'
-        json_obj = query_word(word)
+        json_obj = query_word(wnl.lemmatize(word))
         relations = get_relations(json_obj)
         print relations
     
