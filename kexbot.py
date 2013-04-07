@@ -27,7 +27,9 @@ class Kexbot(cmd.Cmd):
         print it.get_relations(it.query_word(line))
 
     def do_search(self, line):
-        print (cnet.search(line))
+        args = line.split(' ')
+        print args
+        print (cnet.search(*args))
 
     def do_assoc(self, line):
         args = line.split(' ')

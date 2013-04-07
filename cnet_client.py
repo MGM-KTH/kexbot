@@ -12,8 +12,12 @@ def lookup(type, language, key, limit):
     url = API_URL + type + '/' + language + '/' + key + '?limit=5'
     return _get_json(url)
 
-def search(query):
-    return _get_json("search?"+query)
+def search(rel, start, end):
+    rel = "rel="+rel
+    start = "start="+start
+    end = "end="+end
+    url = API_URL + "search?"+"&".join([rel,start,end])
+    return _get_json(url)
 
 def assoc(word, filter, limit):
     url = API_URL + "c/en/" + word + "?filter=" + filter + "&limit=" + limit
