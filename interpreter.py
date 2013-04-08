@@ -22,9 +22,11 @@ class Interpreter():
     
     def get_relations(self, json_obj):
         result = ""
-        for edge in json_obj["edges"]:
-            result = result + edge["start"] + ' ' + edge["rel"] + ' ' + edge["end"] + "\n"
-        return result
+        if not json_obj == "{}":
+            for edge in json_obj["edges"]:
+                result = result + edge["start"] + ' ' + edge["rel"] + ' ' + edge["end"] + "\n"
+            return result
+        return "{}"
     
     def query_word(self, word):
         json_document = json.dumps(cnet.lookup("c", "en", word, 5), indent=4, separators=(',', ': '))
