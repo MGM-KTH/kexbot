@@ -38,18 +38,9 @@ class Context():
         for concept in concepts:
             # Query ConceptNet
             json_obj = self.query_concept(concept)
+            # If the concept wasn't added, don't store it
             if concept not in G.nodes():
                 mentioned_concepts.remove(concept)
-                
-            # Create graph object from the json response
-            #new_subgraph = self.parse_json_to_graph(json_obj)
-            
-            # A list of all nodes that already existed in the graph.
-            #nodes_in_common = [n for n in G.nodes() if n in new_subgraph.nodes()]
-            
-            # Combine graphs identifying nodes common to both
-            #G = nx.compose(G,new_subgraph)  
-        self.print_and_plot_graph()    
     
     def union(self,a,b):
         return list(set(a) | set(b))
