@@ -15,21 +15,21 @@ def lookup(type, language, key, limit):
 def search(rel, start, end, limit, absolute=False):
 
     if not rel == "null":
-        if absolute==False:
+        if not absolute:
             rel = "/r/"+rel
         rel = "rel="+rel
     else:
         rel = ""
 
     if not start == "null":
-        if absolute==False:
+        if not absolute:
             start = "/c/en/"+start
         start = "start="+start
     else:
         start = ""
 
     if not end == "null":
-        if absolute==False:
+        if not absolute:
             end = "/c/en/"+end
         end = "end="+end
     else:
@@ -43,8 +43,12 @@ def search(rel, start, end, limit, absolute=False):
     url = API_URL + "search?"+"&".join([rel,start,end,limit])
     return _get_json(url)
 
-def assoc(word, filter, limit):
-    url = API_URL + "c/en/" + word + "?filter=" + filter + "&limit=" + limit
+def assoc(word, filt, limit, absolute=False):
+    if not absolute:
+        word = "/c/en/"+word
+        filt = "/c/en/"+filt
+
+    url = API_URL + "assoc" + word + "?filter=" + filt + "&limit=" + limit
     return _get_json(url)
 
 '''

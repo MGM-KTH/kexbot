@@ -29,13 +29,10 @@ class Kexbot(cmd.Cmd):
     def do_search(self, line):
         args = line.split(' ')
         print args
-        print (cnet.search(*args))
+        print cnet.search(*args)
 
     def do_assoc(self, line):
         args = line.split(' ')
-        if len(args) != 3:
-            print "Needs 3 arguments."
-            return
         print cnet.assoc(*args)
 
     def default(self, line):
