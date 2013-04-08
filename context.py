@@ -63,7 +63,7 @@ class Context():
         
     def lookup(self, concept):
         global G
-        json_document = json.dumps(cnet.lookup("c", "en", concept, 5), indent=4, separators=(',', ': '))
+        json_document = json.dumps(cnet.lookup(concept, limit=5), indent=4, separators=(',', ': '))
         decoder = json.JSONDecoder()
         json_obj = decoder.decode(json_document)
         new_subgraph = self.parse_json_to_graph(json_obj)
@@ -78,7 +78,7 @@ class Context():
                 decoder = json.JSONDecoder()
                 json_obj = decoder.decode(json_document)
                 new_subgraph = nx.compose(new_subgraph,self.parse_json_to_graph(json_obj))
-                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=7))
+                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=2))
                 decoder = json.JSONDecoder()
                 json_obj = decoder.decode(json_document)
                 new_subgraph = nx.compose(new_subgraph, self.parse_json_to_graph(json_obj))
