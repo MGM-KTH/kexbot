@@ -8,7 +8,7 @@ import cmd
 from termcolor import cprint 
 from colorama import init
 init(strip=not sys.stdout.isatty()) # strip colors if stdout is redirected
-import interpreter as it
+import interpreter as interpreter
 import cnet_client as cnet
 from pyfiglet import figlet_format 
 
@@ -19,6 +19,9 @@ class Kexbot(cmd.Cmd):
 	       'red', attrs=['bold'])
     print "\n"
     prompt = ">"
+    
+    global it
+    it = interpreter.Interpreter()
 
     def do_EOF(self, line):
         return True
