@@ -8,8 +8,18 @@ except:
 
 API_URL = 'http://conceptnet5.media.mit.edu/data/5.1/'
 
-def lookup(type, language, key, limit):
-    url = API_URL + type + '/' + language + '/' + key + '?limit=5'
+def lookup(word, absolute=False, limit=None):
+    if word==None:
+        print "a term must be specified"
+        return "{}"
+    if not limit == None:
+        limit = "?limit="+str(limit)
+    else:
+        limit = ""
+    if absolute:
+        url = API_URL + word + limit
+    else:
+        url = API_URL + "c/en/" + word + limit
     return _get_json(url)
 
 def search(absolute=False, rel=None, start=None, end=None, limit=None):
@@ -64,7 +74,7 @@ def assoc(absolute=False, word=None, filt=None, limit=None):
         filt = ""
 
     if not limit == None:
-        limit = "limit=" + limit
+        limit = "limit=" + str(limit)
     else:
         limit = ""
 

@@ -27,7 +27,20 @@ class Kexbot(cmd.Cmd):
         return True
 
     def do_lookup(self, line):
-        print it.get_relations(it.query_word(line))
+        args = line.split(' ')
+        if not len(args) == 3:
+            print "must have 3 arguments"
+            return
+        for i, arg in enumerate(args):
+            if arg == "null":
+                args[i] = None
+            if i == 2:
+                if arg == "True":
+                    args[i] = True
+                else:
+                    args[i] = False
+
+        print it.get_relations(cnet.lookup(args[0], limit=args[1], absolute=args[2]))
 
     def do_search(self, line):
         args = line.split(' ')
