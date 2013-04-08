@@ -72,13 +72,13 @@ class Context():
     def search(self,concept):
         global G, mentioned_concepts
         new_subgraph = nx.DiGraph()
-        for relation in ['IsA', 'PartOf','ConceptuallyRelatedTo', 'CapableOf', 'HasProperty', 'UsedFor']:
+        for relation in ['IsA', 'PartOf','ConceptuallyRelatedTo','HasContext', 'CapableOf', 'HasProperty', 'UsedFor']:
             for node in mentioned_concepts:
                 json_document = json.dumps(cnet.search(rel=relation, start=node, end=concept, limit=2))
                 decoder = json.JSONDecoder()
                 json_obj = decoder.decode(json_document)
                 new_subgraph = nx.compose(new_subgraph,self.parse_json_to_graph(json_obj))
-                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=7))
+                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=2))
                 decoder = json.JSONDecoder()
                 json_obj = decoder.decode(json_document)
                 new_subgraph = nx.compose(new_subgraph, self.parse_json_to_graph(json_obj))
