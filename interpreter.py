@@ -56,7 +56,6 @@ class Interpreter():
         
         
     def print_relations(self, list):
-        global context
         if not list:
             print "List is empty in print_relations"
         wnl = nltk.stem.wordnet.WordNetLemmatizer()
@@ -80,3 +79,6 @@ class Interpreter():
             for item in list:
                 print item
             print "\n"                
+
+    def get_context(self):
+        return context
