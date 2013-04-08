@@ -13,9 +13,20 @@ def lookup(type, language, key, limit):
     return _get_json(url)
 
 def search(rel, start, end):
-    rel = "rel="+rel
-    start = "start="+start
-    end = "end="+end
+    if not rel == "null":
+        rel = "rel="+rel
+    else:
+        rel = ""
+
+    if not start == "null":
+        start = "start="+start
+    else:
+        start = ""
+
+    if not end == "null":
+        end = "end="+end
+    else:
+        end = ""
     url = API_URL + "search?"+"&".join([rel,start,end])
     return _get_json(url)
 
