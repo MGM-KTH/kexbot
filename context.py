@@ -20,11 +20,12 @@ class Context():
         mentioned_concepts = []
 
     def print_and_plot_graph(self):
-        global G
+        global G, mentioned_concepts
         print nx.to_dict_of_dicts(G)
         # Stuff to plot the graph
         pos = nx.circular_layout(G)
-        nx.draw_networkx_nodes(G,pos,node_size=2000, node_color='green')
+        nx.draw_networkx_nodes(G,pos,node_size=2000, node_color='red')
+        nx.draw_networkx_nodes(G,pos,node_size=2000, node_color='green', nodelist=mentioned_concepts)
         nx.draw_networkx_edges(G,pos,width=5,alpha=0.5,edge_color='black')
         nx.draw_networkx_labels(G,pos,font_size=10)
         nx.draw_networkx_edge_labels(G,pos, font_size=8)
@@ -37,7 +38,9 @@ class Context():
         for concept in concepts:
             # Query ConceptNet
             json_obj = self.query_concept(concept)
-
+            if concept not in G.nodes():
+                mentioned_concepts.remove(concept)
+                
             # Create graph object from the json response
             #new_subgraph = self.parse_json_to_graph(json_obj)
             
@@ -67,17 +70,18 @@ class Context():
         G = nx.compose(G,new_subgraph)
         
     def search(self,concept):
-        global G
+        global G, mentioned_concepts
         new_subgraph = nx.DiGraph()
-        for node in G.nodes():
-            json_document = json.dumps(cnet.search(start=node, end=concept, limit=7))
-            decoder = json.JSONDecoder()
-            json_obj = decoder.decode(json_document)
-            new_subgraph = nx.compose(new_subgraph,self.parse_json_to_graph(json_obj))
-            json_document = json.dumps(cnet.search(start=concept, end=node, limit=7))
-            decoder = json.JSONDecoder()
-            json_obj = decoder.decode(json_document)
-            new_subgraph = nx.compose(new_subgraph, self.parse_json_to_graph(json_obj))
+        for relation in ['IsA', 'PartOf','ConceptuallyRelatedTo', 'CapableOf', 'HasProperty', 'UsedFor']:
+            for node in mentioned_concepts:
+                json_document = json.dumps(cnet.search(rel=relation, start=node, end=concept, limit=2))
+                decoder = json.JSONDecoder()
+                json_obj = decoder.decode(json_document)
+                new_subgraph = nx.compose(new_subgraph,self.parse_json_to_graph(json_obj))
+                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=7))
+                decoder = json.JSONDecoder()
+                json_obj = decoder.decode(json_document)
+                new_subgraph = nx.compose(new_subgraph, self.parse_json_to_graph(json_obj))
         G = nx.compose(G,new_subgraph)    
     #    
     # TODO:
