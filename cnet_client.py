@@ -12,22 +12,35 @@ def lookup(type, language, key, limit):
     url = API_URL + type + '/' + language + '/' + key + '?limit=5'
     return _get_json(url)
 
-def search(rel, start, end):
+def search(rel, start, end, limit, absolute=False):
+
     if not rel == "null":
+        if absolute==False:
+            rel = "/r/"+rel
         rel = "rel="+rel
     else:
         rel = ""
 
     if not start == "null":
+        if absolute==False:
+            start = "/c/en/"+start
         start = "start="+start
     else:
         start = ""
 
     if not end == "null":
+        if absolute==False:
+            end = "/c/en/"+end
         end = "end="+end
     else:
         end = ""
-    url = API_URL + "search?"+"&".join([rel,start,end])
+
+    if not limit == "null":
+        limit = "limit="+limit
+    else:
+        limit = ""
+
+    url = API_URL + "search?"+"&".join([rel,start,end,limit])
     return _get_json(url)
 
 def assoc(word, filter, limit):
