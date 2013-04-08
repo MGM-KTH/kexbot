@@ -29,7 +29,7 @@ class Interpreter():
         return "{}"
     
     def query_word(self, word):
-        json_document = json.dumps(cnet.lookup("c", "en", word, 5), indent=4, separators=(',', ': '))
+        json_document = json.dumps(cnet.lookup(word, limit=5), indent=4, separators=(',', ': '))
         decoder = json.JSONDecoder()
         json_obj = decoder.decode(json_document)
         return json_obj
