@@ -64,7 +64,7 @@ def assoc(absolute=False, word=None, filt=None, limit=None):
         filt = ""
 
     if not limit == None:
-        limit = "limit=" + limit
+        limit = "limit=" + str(limit)
     else:
         limit = ""
 
