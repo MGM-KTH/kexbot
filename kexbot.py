@@ -75,6 +75,10 @@ class Kexbot(cmd.Cmd):
 
         print cnet.assoc(word=args[0], filt=args[1], limit=args[2], absolute=args[3])
 
+    def do_print(self, line):
+        context = it.get_context()
+        context.print_and_plot_graph()
+
     def default(self, line):
         it.process_line(line)
 
