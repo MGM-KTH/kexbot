@@ -31,12 +31,36 @@ class Kexbot(cmd.Cmd):
 
     def do_search(self, line):
         args = line.split(' ')
+        if not len(args) == 5:
+            print "must have 5 arguments"
+            return
+        for i, arg in enumerate(args):
+            if arg == "null":
+                args[i] = None
+            if i == 4:
+                if arg == "True":
+                    args[i] = True
+                else:
+                    args[i] = False
         print args
-        print cnet.search(*args)
+
+        print cnet.search(rel=args[0], start=args[1], end=args[2], limit=args[3], absolute=args[4])
 
     def do_assoc(self, line):
         args = line.split(' ')
-        print cnet.assoc(*args)
+        if not len(args) == 4:
+            print "must have 4 arguments"
+            return
+        for i, arg in enumerate(args):
+            if arg == "null":
+                args[i] = None
+            if i == 3:
+                if arg == "True":
+                    args[i] = True
+                else:
+                    args[i] = False
+
+        print cnet.assoc(word=args[0], filt=args[1], limit=args[2], absolute=args[3])
 
     def default(self, line):
         it.process_line(line)

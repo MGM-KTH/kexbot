@@ -12,30 +12,35 @@ def lookup(type, language, key, limit):
     url = API_URL + type + '/' + language + '/' + key + '?limit=5'
     return _get_json(url)
 
-def search(rel, start, end, limit, absolute=False):
+def search(absolute=False, rel=None, start=None, end=None, limit=None):
 
-    if not rel == "null":
+    if rel == None and start == None and end == None:
+        print "atleast one argument must be specified"
+        return "{}"
+
+    if not rel == None:
         if not absolute:
+            print rel
             rel = "/r/"+rel
         rel = "rel="+rel
     else:
         rel = ""
 
-    if not start == "null":
+    if not start == None:
         if not absolute:
             start = "/c/en/"+start
         start = "start="+start
     else:
         start = ""
 
-    if not end == "null":
+    if not end == None:
         if not absolute:
             end = "/c/en/"+end
         end = "end="+end
     else:
         end = ""
 
-    if not limit == "null":
+    if not limit == None:
         limit = "limit="+limit
     else:
         limit = ""
@@ -43,12 +48,27 @@ def search(rel, start, end, limit, absolute=False):
     url = API_URL + "search?"+"&".join([rel,start,end,limit])
     return _get_json(url)
 
-def assoc(word, filt, limit, absolute=False):
+def assoc(absolute=False, word=None, filt=None, limit=None):
+    if word == None:
+        print "Word needs to be defined."
+        return "{}"
+
     if not absolute:
         word = "/c/en/"+word
-        filt = "/c/en/"+filt
 
-    url = API_URL + "assoc" + word + "?filter=" + filt + "&limit=" + limit
+    if not filt == None:
+        if not absolute:
+            filt = "/c/en/"+filt
+        filt = "filter=" + filt
+    else:
+        filt = ""
+
+    if not limit == None:
+        limit = "limit=" + limit
+    else:
+        limit = ""
+
+    url = API_URL + "assoc" + word + "?"+"&".join([filt,limit])
     return _get_json(url)
 
 '''
