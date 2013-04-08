@@ -41,7 +41,7 @@ def search(absolute=False, rel=None, start=None, end=None, limit=None):
         end = ""
 
     if not limit == None:
-        limit = "limit="+limit
+        limit = "limit="+str(limit)
     else:
         limit = ""
 
