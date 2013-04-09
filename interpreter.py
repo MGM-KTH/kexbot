@@ -17,7 +17,7 @@ class Interpreter():
         
     def process_line(self, line):
         matched_words = self.get_word_tag_match(line,["N","NP"])
-        self.print_relations(matched_words)
+        #self.print_relations(matched_words)
         context.expand_graph(matched_words)
     
     def get_relations(self, json_obj):

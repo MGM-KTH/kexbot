@@ -30,7 +30,7 @@ def search(absolute=False, rel=None, start=None, end=None, limit=None):
 
     if not rel == None:
         if not absolute:
-            print rel
+            #print rel
             rel = "/r/"+rel
         rel = "rel="+rel
     else:
@@ -88,6 +88,6 @@ def old_get_json(*url_parts):
 '''
 
 def _get_json(url):
-    print url
+    #print url
     conn = urllib2.urlopen(url)
     return json.loads(conn.read())

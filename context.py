@@ -49,6 +49,7 @@ class Context():
         global G
         if G.nodes():
             self.search(concept)
+            self.lookup(concept)
         else:    
             self.lookup(concept)       
         
@@ -63,13 +64,13 @@ class Context():
     def search(self,concept):
         global G, mentioned_concepts
         new_subgraph = nx.DiGraph()
-        for relation in ['IsA', 'PartOf','ConceptuallyRelatedTo','HasContext', 'CapableOf', 'HasProperty', 'UsedFor']:
+        for relation, lim in [('IsA',8), ('PartOf', 2),('ConceptuallyRelatedTo',1),('HasContext', 1), ('CapableOf',1), ('HasProperty',1), ('UsedFor',2)]:
             for node in mentioned_concepts:
-                json_document = json.dumps(cnet.search(rel=relation, start=node, end=concept, limit=2))
+                json_document = json.dumps(cnet.search(rel=relation, start=node, end=concept, limit=lim))
                 decoder = json.JSONDecoder()
                 json_obj = decoder.decode(json_document)
                 new_subgraph = nx.compose(new_subgraph,self.parse_json_to_graph(json_obj))
-                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=2))
+                json_document = json.dumps(cnet.search(rel=relation,start=concept, end=node, limit=lim))
                 decoder = json.JSONDecoder()
                 json_obj = decoder.decode(json_document)
                 new_subgraph = nx.compose(new_subgraph, self.parse_json_to_graph(json_obj))
