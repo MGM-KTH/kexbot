@@ -55,7 +55,7 @@ def search(absolute=False, rel=None, start=None, end=None, limit=None):
     else:
         limit = ""
 
-    url = API_URL + "search?"+"&".join([rel,start,end,limit])
+    url = API_URL + "search?filter=core&"+"&".join([rel,start,end,limit])
     return _get_json(url)
 
 def assoc(absolute=False, word=None, filt=None, limit=None):
